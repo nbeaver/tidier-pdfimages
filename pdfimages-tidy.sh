@@ -7,7 +7,7 @@ hash pdfimages 2>/dev/null || { echo >&2 "Please install pdfimages."; exit 1; }
 # Terminate as soon as any command fails.
 set -e
 
-# Argument check ($# is the number of arguments
+# Argument check ($# is the number of arguments)
 if [ $# -lt 1 ]; then
     echo "Usage: pdfimages-tidy [options] <PDF-file>"
     pdfimages 2>&1 >/dev/null | tail -n +5 # An underhanded, hacky way of getting all the pdfimages options for free.
@@ -61,8 +61,10 @@ if [ ! -d "$IMAGE_FOLDER" ]; then
 fi
 # http://stackoverflow.com/questions/59838/how-to-check-if-a-directory-exists-in-a-shell-script
 
+# Because pdfimages dumps into the current directory,
+# we have to go into the image folder and then reference the parent directory.
 cd $IMAGE_FOLDER
-# Run pdfimages with the necessary flags, and use the filename as the starting point for the images names,
+# Run pdfimages with the necessary flags, and use the filename as the starting point for the images names.
 # e.g. file.pdf-000.ppm, file.pdf-001.ppm, ...
 pdfimages $ALL_BUT_FILE_NAME ../$FILE_NAME $FILE_NAME
 cd - &> /dev/null # go back up to the starting folder, throwing away the output, which is just the name of the directory we started in.
