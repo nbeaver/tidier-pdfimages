@@ -1,0 +1,7 @@
+This shell script came about because I go through a lot of research articles and frequently need to extract the images from them.
+
+The `pdfimages` command works nicely for this, but it's not particularly well maintained and dumps all the images into the working directory.
+
+Furthermore, it prompts for a name for the image root, when I would be perfectly happy with just using the filename of the pdf.
+
+To fix this, I wrote a very simple wrapper script.
