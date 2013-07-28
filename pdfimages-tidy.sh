@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Check to make sure pdfimages is installed.
+hash pdfimages 2>/dev/null || { echo >&2 "Please install pdfimages."; exit 1; }
+# http://stackoverflow.com/questions/592620/check-if-a-program-exists-from-a-bash-script
+
 # Terminate as soon as any command fails.
 set -e
 
