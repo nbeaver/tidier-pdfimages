@@ -63,8 +63,8 @@ fi
 
 # Because pdfimages dumps into the current directory,
 # we have to go into the image folder and then reference the parent directory.
-cd $IMAGE_FOLDER
+cd "$IMAGE_FOLDER"
 # Run pdfimages with the necessary flags, and use the filename as the starting point for the images names.
 # e.g. file.pdf-000.ppm, file.pdf-001.ppm, ...
-pdfimages $ALL_BUT_FILE_NAME ../$FILE_NAME $FILE_NAME
+pdfimages "$ALL_BUT_FILE_NAME" ../"$FILE_NAME" "$FILE_NAME"
 cd - &> /dev/null # go back up to the starting folder, throwing away the output, which is just the name of the directory we started in.
