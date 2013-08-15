@@ -57,7 +57,7 @@ fi
 
 # If the directory doesn't exist, then create it.
 if [ ! -d "$IMAGE_FOLDER" ]; then
-    mkdir $IMAGE_FOLDER
+    mkdir "$IMAGE_FOLDER"
 fi
 # http://stackoverflow.com/questions/59838/how-to-check-if-a-directory-exists-in-a-shell-script
 
