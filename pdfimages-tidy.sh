@@ -66,6 +66,17 @@ fi
 cd "$IMAGE_FOLDER"
 # Run pdfimages with the necessary flags, and use the filename as the starting point for the images names.
 # e.g. file.pdf-000.ppm, file.pdf-001.ppm, ...
+echo -n "Extracting images..."
 pdfimages "../$FILE_NAME" "$FILE_NAME"
-# TODO: automatically run pnmtopng on the files that end with 
+echo "done."
+# automatically run pnmtopng on the files that end with ppm.
+# http://www.cyberciti.biz/faq/bash-loop-over-file/
+shopt -s nullglob
+for ppm_file in *.ppm
+do
+    # http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash
+    echo "Converting $ppm_file to png."
+    filename_no_extension="${ppm_file%.*}"
+    pnmtopng "$ppm_file" > "$filename_no_extension.png"
+done
 cd - &> /dev/null # go back up to the starting folder, throwing away the output, which is just the name of the directory we started in.
