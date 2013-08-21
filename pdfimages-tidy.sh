@@ -69,6 +69,8 @@ cd "$IMAGE_FOLDER"
 echo -n "Extracting images..."
 pdfimages "../$FILE_NAME" "$FILE_NAME"
 echo "done."
+number_of_images_extracted=$(find ./ -maxdepth 1 -type f -print| wc -l)
+echo "$number_of_images_extracted images extracted."
 # automatically run pnmtopng on the files that end with ppm.
 # http://www.cyberciti.biz/faq/bash-loop-over-file/
 shopt -s nullglob
