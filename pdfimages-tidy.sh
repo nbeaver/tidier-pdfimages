@@ -31,7 +31,7 @@ if [ $1 == '-v' -o $1 == '-version' -o $1 == '--version' ]; then
     exit
 fi
 
-
+# TODO: Fix this so that filenames can have spaces.
 FILE_NAME="${@: -1}" # last argument (split by spaces) is the name of the pdf file.
 # http://stackoverflow.com/questions/1853946/getting-the-last-argument-passed-to-a-shell-script
 
@@ -43,9 +43,9 @@ ALL_BUT_FILE_NAME="${@:1:$(($#-1))}"
 
 IMAGE_FOLDER=$FILE_NAME"_images"
 
-DEBUG=1
+DEBUG=0
 if [ $DEBUG -eq 1 ]; then
-    echo -e "Extracting images from file $FILENAME to folder $IMAGE_FOLDER by running this command:\n$ pdfimages $ALL_BUT_FILE_NAME ../$FILE_NAME $FILE_NAME"
+    echo -e "Extracting images from file $FILENAME to folder $IMAGE_FOLDER by running this command:\n$ pdfimages \"../$FILE_NAME\" \"$FILE_NAME\""
     # http://stackoverflow.com/questions/226703/how-do-i-prompt-for-input-in-a-linux-shell-script
     select CHOICE in "Yes" "No"; do
         case $CHOICE in
@@ -66,6 +66,6 @@ fi
 cd "$IMAGE_FOLDER"
 # Run pdfimages with the necessary flags, and use the filename as the starting point for the images names.
 # e.g. file.pdf-000.ppm, file.pdf-001.ppm, ...
-pdfimages "$ALL_BUT_FILE_NAME" "../$FILE_NAME" "$FILE_NAME"
+pdfimages "../$FILE_NAME" "$FILE_NAME"
 # TODO: automatically run pnmtopng on the files that end with 
 cd - &> /dev/null # go back up to the starting folder, throwing away the output, which is just the name of the directory we started in.
