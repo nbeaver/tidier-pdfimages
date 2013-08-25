@@ -81,4 +81,16 @@ do
     filename_no_extension="${ppm_file%.*}"
     pnmtopng "$ppm_file" > "$filename_no_extension.png"
 done
+# There are also files that end in pbm.
+# When funning the 'file' command:
+# image.ppm: Netpbm PPM "rawbits" image data
+# image.pbm: Netpbm PBM "rawbits" image data
+# I should really handle this more elegantly, but this fix gets the job done.
+for pbm_file in *.pbm
+do
+    # http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash
+    echo "Converting $pbm_file to png."
+    filename_no_extension="${pbm_file%.*}"
+    pnmtopng "$pbm_file" > "$filename_no_extension.png"
+done
 cd - &> /dev/null # go back up to the starting folder, throwing away the output, which is just the name of the directory we started in.
