@@ -2,3 +2,6 @@ Figure out why it says:
 pdfimages-tidy.sh: line 17: [: too many arguments
 pdfimages-tidy.sh: line 29: [: too many arguments
 
+Make it work for multiple pdf files
+
+Make it work for file paths, not just files in the current directory.
