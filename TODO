@@ -1,7 +1,7 @@
-Figure out why it says:
-pdfimages-tidy.sh: line 17: [: too many arguments
-pdfimages-tidy.sh: line 29: [: too many arguments
+- [x] Make it work for file paths, not just files in the current directory.
 
-Make it work for multiple pdf files
+- [x] Make it pass other arguments to pdfimages.
 
-Make it work for file paths, not just files in the current directory.
+- [ ] Make it handle spaces in filename and file paths.
+
+- [ ] Make it work for multiple pdf files.
