@@ -36,6 +36,20 @@ fi
 FILEPATH="${@: -1}" # last argument (split by spaces) is the name of the pdf file.
 # http://stackoverflow.com/questions/1853946/getting-the-last-argument-passed-to-a-shell-script
 
+# Check if the file exists
+if [ ! -f $FILEPATH ]; then
+    echo "File not found:"$FILEPATH
+    exit 1 # pdfimages man page: 1 Error opening a PDF file.
+fi
+
+# Check if the file is a pdf
+if [ ! $(head --bytes=4 "$FILEPATH") = "%PDF" ]; then
+    echo "File is not a pdf."
+    echo "File is of type "$(file $FILEPATH)
+    exit 1 # pdfimages man page: 1 Error opening a PDF file.
+fi
+# http://stackoverflow.com/questions/16152583/tell-if-a-file-is-pdf-in-bash
+
 #DONE: pass these to the script later on
 OTHER_ARGUMENTS="${@:1:$(($#-1))}"
 # http://stackoverflow.com/a/1215592/1608986
