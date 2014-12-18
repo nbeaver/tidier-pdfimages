@@ -14,7 +14,7 @@ if [ $# -lt 1 ]; then
     exit
 fi
 
-if [ $1 == '-h' -o $1 == '-help' -o $1 == '--help' -o $1 == '-?' ]; then
+if [ "$1" == '-h' -o "$1" == '-help' -o "$1" == '--help' -o "$1" == '-?' ]; then
     echo "Usage: pdfimages-tidy [options] /optional/path/to/file.pdf"
     echo "This is a wrapper script for pdfimages."
     echo "pdfimages-tidy can use any options that pdfimages does,"
@@ -26,7 +26,7 @@ if [ $1 == '-h' -o $1 == '-help' -o $1 == '--help' -o $1 == '-?' ]; then
     exit
 fi
 
-if [ $1 == '-v' -o $1 == '-version' -o $1 == '--version' ]; then
+if [ "$1" == '-v' -o "$1" == '-version' -o "$1" == '--version' ]; then
     pdfimages -v # I don't understand why pdfimages doesn't permit --version as equivalent to -v.
     exit
 fi
@@ -37,15 +37,15 @@ FILEPATH="${@: -1}" # last argument (split by spaces) is the name of the pdf fil
 # http://stackoverflow.com/questions/1853946/getting-the-last-argument-passed-to-a-shell-script
 
 # Check if the file exists
-if [ ! -f $FILEPATH ]; then
-    echo "File not found:"$FILEPATH
+if [ ! -f "$FILEPATH" ]; then
+    echo "File not found:$FILEPATH"
     exit 1 # pdfimages man page: 1 Error opening a PDF file.
 fi
 
 # Check if the file is a pdf
 if [ ! $(head --bytes=4 "$FILEPATH") = "%PDF" ]; then
     echo "File is not a pdf."
-    echo "File is of type "$(file $FILEPATH)
+    echo "File is of type $(file "$FILEPATH")"
     exit 1 # pdfimages man page: 1 Error opening a PDF file.
 fi
 # http://stackoverflow.com/questions/16152583/tell-if-a-file-is-pdf-in-bash
@@ -57,8 +57,8 @@ OTHER_ARGUMENTS="${@:1:$(($#-1))}"
 # FILEPATH="${!#}"   # this should work, too.
 # http://stackoverflow.com/a/1216239/1608986
 
-FILE_DIR=$(dirname $FILEPATH)
-FILENAME=$(basename $FILEPATH)
+FILE_DIR=$(dirname "$FILEPATH")
+FILENAME=$(basename "$FILEPATH")
 
 IMAGE_FOLDER=$FILEPATH"_images"
 
@@ -86,7 +86,7 @@ fi
 echo -n "Extracting images..."
 pdfimages $OTHER_ARGUMENTS "$FILEPATH" "$IMAGE_FOLDER/$FILENAME"
 echo "done."
-number_of_images_extracted=$(find $IMAGE_FOLDER -maxdepth 1 -type f -print| wc -l)
+number_of_images_extracted=$(find "$IMAGE_FOLDER" -maxdepth 1 -type f -print| wc -l)
 echo "$number_of_images_extracted images extracted."
 cd "$IMAGE_FOLDER"
 # automatically run pnmtopng on the files that end with ppm.
