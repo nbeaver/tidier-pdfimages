@@ -9,8 +9,10 @@ set -e
 
 # Argument check ($# is the number of arguments)
 if [ $# -lt 1 ]; then
-    echo "Usage: pdfimages-tidy [options] <PDF-file>"
-    pdfimages 2>&1 >/dev/null | tail -n +5 # An underhanded, hacky way of getting all the pdfimages options for free.
+    echo "Usage: pdfimages-tidy.sh [options] <PDF-file>"
+    # This shell script doesn't add any options,
+    # so just print the usage information from pdfimages.
+    pdfimages 2>&1 | tail -n +5
     exit
 fi
 
@@ -20,7 +22,7 @@ if [ "$1" == '-h' -o "$1" == '-help' -o "$1" == '--help' -o "$1" == '-?' ]; then
     echo "pdfimages-tidy can use any options that pdfimages does,"
     echo "but it automatically sets the image-root name to be the"
     echo "name of the pdf file and puts the images in a folder."
-    echo "Here is the help message from pdfimages:"
+    echo "Here is the full help message from pdfimages:"
     echo "--------------------------------------------------------------------------------"
     pdfimages --help
     exit
@@ -43,7 +45,7 @@ if [ ! -f "$FILEPATH" ]; then
 fi
 
 # Check if the file is a pdf
-if [ ! $(head --bytes=4 "$FILEPATH") = "%PDF" ]; then
+if [ ! "$(head --bytes=4 "$FILEPATH")" = "%PDF" ]; then
     echo "File is not a pdf."
     echo "File is of type $(file "$FILEPATH")"
     exit 1 # pdfimages man page: 1 Error opening a PDF file.
