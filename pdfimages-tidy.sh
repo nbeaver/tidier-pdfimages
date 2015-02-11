@@ -22,7 +22,7 @@ if [ "$1" == '-h' -o "$1" == '-help' -o "$1" == '--help' -o "$1" == '-?' ]; then
     echo "pdfimages-tidy can use any options that pdfimages does,"
     echo "but it automatically sets the image-root name to be the"
     echo "name of the pdf file and puts the images in a folder."
-    echo "Here is the full help message from pdfimages:"
+    echo "Here is the help message from pdfimages:"
     echo "--------------------------------------------------------------------------------"
     pdfimages --help
     exit
