@@ -13,3 +13,7 @@ Example usage:
     pdfimages-tidy file.pdf
 
 This will extract all images in file.pdf to file.pdf_images/ and convert them to `png` files while keeping the original images.
+
+# License #
+
+This project is licensed under the terms of the [MIT license](LICENSE.txt).
