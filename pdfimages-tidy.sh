@@ -97,6 +97,12 @@ shopt -s nullglob
 for ppm_file in *.ppm
 do
     # http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash
+    if ! test -f "$ppm_file"
+    then
+        # Skip the file if it no longer exists.
+        printf 'Warning: does not exist: %s\n' "$ppm_file" >&2
+        continue
+    fi
     echo "Converting $ppm_file to png."
     filename_no_extension="${ppm_file%.*}"
     pnmtopng "$ppm_file" > "$filename_no_extension.png"
@@ -109,6 +115,12 @@ done
 for pbm_file in *.pbm
 do
     # http://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash
+    if ! test -f "$pbm_file"
+    then
+        # Skip the file if it no longer exists.
+        printf 'Warning: does not exist: %s\n' "$ppm_file" >&2
+        continue
+    fi
     echo "Converting $pbm_file to png."
     filename_no_extension="${pbm_file%.*}"
     pnmtopng "$pbm_file" > "$filename_no_extension.png"
